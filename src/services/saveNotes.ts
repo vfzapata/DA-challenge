@@ -1,5 +1,5 @@
-import { STORAGE_KEY } from '../const/notes';
-import type { Note } from '../types/notes';
+import { STORAGE_KEY } from '../const/notesConst';
+import type { Note } from '../types/notesTypes';
 
 export function saveNotes(notes: Note[]) {
   try {

@@ -1,6 +1,6 @@
 import { starterNotes } from '../data/storage';
-import type { Note } from '../types/notes';
-import { STORAGE_KEY } from '../const/notes';
+import type { Note } from '../types/notesTypes';
+import { STORAGE_KEY } from '../const/notesConst';
 
 export function loadNotes(): Note[] {
   try {

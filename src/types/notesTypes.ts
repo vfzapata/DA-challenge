@@ -1,3 +1,5 @@
+export type NoteSize = 'small' | 'medium' | 'large'
+
 export type Note = {
   id: string
   x: number

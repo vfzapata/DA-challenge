@@ -1,5 +1,5 @@
-import { NOTE_COLORS } from '../const/notes';
-import type { Note } from '../types/notes';
+import { NOTE_COLORS } from '../const/notesConst';
+import type { Note } from '../types/notesTypes';
 
 export const starterNotes: Note[] = [
   {

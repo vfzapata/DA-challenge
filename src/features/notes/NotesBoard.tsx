@@ -5,13 +5,11 @@ import type {
   MouseEvent as ReactMouseEvent,
   PointerEvent as ReactPointerEvent,
 } from 'react'
-import { NOTE_SIZES } from './notes'
-import type { Note } from '../../types/notes'
-import type { NoteSize } from './notes'
+import type { Note, NoteSize } from '../../types/notesTypes'
 import Header from '../../shared/header/Header'
 import Footer from '../../shared/footer/Footer'
 import './notes.css'
-import { NOTE_COLORS } from '../../const/notes'
+import { NOTE_COLORS, NOTE_SIZES } from '../../const/notesConst'
 
 // Loading notes service
 import { loadNotes } from '../../services/loadNotes'
