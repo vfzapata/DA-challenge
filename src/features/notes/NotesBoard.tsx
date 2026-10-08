@@ -7,9 +7,9 @@ import type {
   PointerEvent as ReactPointerEvent,
   SetStateAction,
 } from 'react'
-import type { Note, NoteSize } from '../../types/notesTypes'
+import type { Note } from '../../types/notesTypes'
 import './notes.css'
-import { NOTE_COLORS, NOTE_SIZES } from '../../const/notesConst'
+import { NOTE_COLORS } from '../../const/notesConst'
 
 type NotesBoardProps = {
   notes: Note[]
@@ -28,14 +28,7 @@ type ActivePointer = {
   originHeight: number
 }
 
-const sizeLabels: Record<NoteSize, string> = {
-  small: 'S',
-  medium: 'M',
-  large: 'L',
-}
-
 function NotesBoard({ notes, setNotes }: NotesBoardProps) {
-  const [selectedSize, setSelectedSize] = useState<NoteSize>('medium')
   const [isPlacing, setIsPlacing] = useState(false)
   const [activePointer, setActivePointer] = useState<ActivePointer | null>(null)
   const boardRef = useRef<HTMLDivElement>(null)
@@ -80,7 +73,7 @@ function NotesBoard({ notes, setNotes }: NotesBoardProps) {
       window.removeEventListener('pointerup', finishPointer)
       window.removeEventListener('pointercancel', finishPointer)
     }
-  }, [activePointer])
+  }, [activePointer, setNotes])
 
   const beginPointer = (
     event: ReactPointerEvent<HTMLElement>,
@@ -106,7 +99,7 @@ function NotesBoard({ notes, setNotes }: NotesBoardProps) {
   const placeNote = (event: ReactMouseEvent<HTMLDivElement>) => {
     if (!isPlacing || event.target !== event.currentTarget || !boardRef.current) return
     const bounds = boardRef.current.getBoundingClientRect()
-    const size = NOTE_SIZES[selectedSize]
+    const size = { width: 250, height: 220 }
     const x = Math.min(Math.max(0, event.clientX - bounds.left), bounds.width - size.width)
     const y = Math.min(Math.max(0, event.clientY - bounds.top), bounds.height - size.height)
     const note: Note = {
@@ -158,7 +151,7 @@ function NotesBoard({ notes, setNotes }: NotesBoardProps) {
     <>
       <section className="board-intro flex items-end justify-between">
         <div>
-          <h1>Good ideas<br /><span>stick around.</span></h1>
+          <h1>All notes<br /><span>Check your notes.</span></h1>
         </div>
       </section>
 
