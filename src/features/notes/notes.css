@@ -18,28 +18,9 @@
 }
 
 .brand-mark {
-  position: relative;
   width: 27px;
   height: 27px;
-  border: 1px solid #244d43;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-
-.brand-mark::before,
-.brand-mark span {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 1px solid #244d43;
-  border-radius: 50%;
-}
-
-.brand-mark span {
-  transform: translate(5px, -5px);
-  background: #f4f5f1;
+  display: block;
 }
 
 .brand-name {

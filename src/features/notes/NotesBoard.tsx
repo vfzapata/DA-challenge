@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import type {
   CSSProperties,
+  Dispatch,
   KeyboardEvent as ReactKeyboardEvent,
   MouseEvent as ReactMouseEvent,
   PointerEvent as ReactPointerEvent,
+  SetStateAction,
 } from 'react'
 import type { Note, NoteSize } from '../../types/notesTypes'
-import Header from '../../shared/header/Header'
-import Footer from '../../shared/footer/Footer'
 import './notes.css'
 import { NOTE_COLORS, NOTE_SIZES } from '../../const/notesConst'
 
-// Loading notes service
-import { loadNotes } from '../../services/loadNotes'
-import { saveNotes } from '../../services/saveNotes'
+type NotesBoardProps = {
+  notes: Note[]
+  setNotes: Dispatch<SetStateAction<Note[]>>
+}
 
 type ActivePointer = {
   id: string
@@ -33,17 +34,11 @@ const sizeLabels: Record<NoteSize, string> = {
   large: 'L',
 }
 
-function NotesBoard() {
-  const [notes, setNotes] = useState<Note[]>(loadNotes)
+function NotesBoard({ notes, setNotes }: NotesBoardProps) {
   const [selectedSize, setSelectedSize] = useState<NoteSize>('medium')
   const [isPlacing, setIsPlacing] = useState(false)
   const [activePointer, setActivePointer] = useState<ActivePointer | null>(null)
   const boardRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const timeout = window.setTimeout(() => saveNotes(notes), 180)
-    return () => window.clearTimeout(timeout)
-  }, [notes])
 
   useEffect(() => {
     if (!activePointer) return
@@ -160,32 +155,14 @@ function NotesBoard() {
   }
 
   return (
-    <main className="app-shell flex min-h-screen flex-col">
-      <Header notes={notes} />
+    <>
       <section className="board-intro flex items-end justify-between">
         <div>
-          <p className="eyebrow">YOUR SPACE, YOUR PACE</p>
           <h1>Good ideas<br /><span>stick around.</span></h1>
         </div>
-        <p className="intro-aside">A little room to think.<br />Make it yours.</p>
       </section>
 
       <section className="board-tools flex items-center justify-between" aria-label="Board controls">
-        <div className="size-picker flex items-center gap-2" role="group" aria-label="New note size">
-          <span className="tools-label">NOTE SIZE</span>
-          {(Object.keys(NOTE_SIZES) as NoteSize[]).map((size) => (
-            <button
-              className={`size-option ${selectedSize === size ? 'is-selected' : ''}`}
-              type="button"
-              key={size}
-              aria-pressed={selectedSize === size}
-              aria-label={`${size} note, ${NOTE_SIZES[size].width} by ${NOTE_SIZES[size].height} pixels`}
-              onClick={() => setSelectedSize(size)}
-            >
-              <span className={`size-icon size-icon--${size}`} />{sizeLabels[size]}
-            </button>
-          ))}
-        </div>
         <div className="tool-actions flex items-center gap-3">
           {isPlacing && <span className="place-hint">Click anywhere on the board</span>}
           <button
@@ -206,7 +183,6 @@ function NotesBoard() {
         className={`board-canvas relative flex-1 ${isPlacing ? 'is-placing' : ''}`}
         onClick={placeNote}
       >
-        <div className="board-corner board-corner--left" aria-hidden="true">FIELD NOTES <span> / </span> 01</div>
         <div className="board-corner board-corner--right" aria-hidden="true">DRAG TO ARRANGE</div>
         {notes.map((note, index) => (
           <article
@@ -271,8 +247,7 @@ function NotesBoard() {
           </div>
         )}
       </div>
-      <Footer />
-    </main>
+    </>
   )
 }
 
