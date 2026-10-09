@@ -1,3 +1,5 @@
+import './footer.css';
+
 function Footer() {
 	return (
 		<footer className="board-footer flex items-center justify-between">

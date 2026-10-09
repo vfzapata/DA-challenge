@@ -8,7 +8,7 @@ export const starterNotes: Note[] = [
     y: 72,
     width: 250,
     height: 220,
-    text: 'Start with the feeling.\n\nWhat should this week make room for?',
+    text: 'Task one.\n\nWhat should this week make room for?',
     color: NOTE_COLORS[0],
   },
   {
@@ -17,7 +17,7 @@ export const starterNotes: Note[] = [
     y: 154,
     width: 250,
     height: 220,
-    text: 'Small steps count.\n\nPick one thing and give it your full attention.',
+    text: 'Task two.\n\nWhat is one small step you can take today?',
     color: NOTE_COLORS[2],
   },
   {

@@ -1,22 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/jest-globals'
 import { describe, expect, it } from '@jest/globals'
-import type { Note } from '../../types/notesTypes'
 import Header from './Header'
-
-const createNote = (id: string): Note => ({
-  id,
-  x: 0,
-  y: 0,
-  width: 250,
-  height: 220,
-  text: '',
-  color: '#f3d66b',
-})
 
 describe('Header', () => {
   it('renders the brand, saved status, and singular note count', () => {
-    const { container } = render(<Header notes={[createNote('note-1')]} />)
+    const { container } = render(<Header noteCount={1} />)
 
     expect(screen.getByRole('link', { name: 'Notes board home' })).toHaveAttribute('href', '#board')
     expect(container.querySelector('img')).toHaveAttribute('src', 'test-file-stub')
@@ -25,13 +14,13 @@ describe('Header', () => {
   })
 
   it('uses the plural note label', () => {
-    render(<Header notes={[createNote('note-1'), createNote('note-2')]} />)
+    render(<Header noteCount={2} />)
 
     expect(screen.getByText('2 notes')).toBeInTheDocument()
   })
 
   it('renders zero notes', () => {
-    render(<Header notes={[]} />)
+    render(<Header noteCount={0} />)
 
     expect(screen.getByText('0 notes')).toBeInTheDocument()
   })

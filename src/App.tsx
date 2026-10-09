@@ -16,7 +16,7 @@ function App() {
 
   return (
     <main className="app-shell flex min-h-screen flex-col">
-      <Header notes={notes} />
+      <Header noteCount={notes.length} />
       <NotesBoard notes={notes} setNotes={setNotes} />
       <Footer />
     </main>

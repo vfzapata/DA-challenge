@@ -1,11 +1,11 @@
-import type { Note } from '../../types/notesTypes'
-import brandIcon from '../../assets/brandicon.png'
+import brandIcon from '../../assets/brandicon.png';
+import './header.css';
 
 type HeaderProps = {
-	notes: Note[]
+	noteCount: number
 }
 
-function Header({ notes }: HeaderProps) {
+function Header({ noteCount }: HeaderProps) {
 	return (
 		<header className="topbar flex items-center justify-between">
 			<a className="brand flex items-center gap-3" href="#board" aria-label="Notes board home">
@@ -15,7 +15,7 @@ function Header({ notes }: HeaderProps) {
 			<div className="topbar-meta flex items-center gap-4">
 				<span className="saved-indicator"><span /> Saved on the current session</span>
 				<span className="meta-divider" />
-				<span className="note-count">{notes.length} {notes.length === 1 ? 'note' : 'notes'}</span>
+				<span className="note-count">{noteCount} {noteCount === 1 ? 'note' : 'notes'}</span>
 			</div>
 		</header>
 	)
